@@ -1,7 +1,8 @@
-import {RockPaperScissors} from './rock-paper'
+import RockPaperScissors from './rock-paper'
 
 const game1 = new RockPaperScissors('rock')
 
 console.log(game1)
-console.log(game1.gameResult)
+game1.gameLevel = 0
+game1.generateComputerChoice()
 console.log(game1)
