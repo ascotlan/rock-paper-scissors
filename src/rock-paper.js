@@ -3,8 +3,22 @@ class RockPaperScissors {
     this.playerChoice = playerChoice
     this.computerChoice = ''
     this.gameDifficulty = difficulty ///set as 0 or  1
-    this.playerScore = 0
+    this.playerScore = this.loadScore().playerScore //load for each new game
     this.computerScore = 0
+  }
+
+  loadScore(){
+    const scoreJSON = localStorage.getItem('scores')
+
+    try {
+      return scoreJSON ? JSON.parse(scoreJSON) : {playerScore: 0}
+    }catch(e){
+      return {playerScore: 0}
+    }
+  }
+
+  saveScore(){
+    localStorage.setItem('scores',JSON.stringify({playerScore: this.playerScore}))
   }
 
   keepScore() {
@@ -17,8 +31,12 @@ class RockPaperScissors {
 
     this.playerScore  += scores.playerScore
     this.playerScore -= this.playerScore > 0 ? scores.computerScore : 0
+    this.saveScore()     //store this.playerScore on local storage
+
 
     return {
+        playerChoice:this.playerChoice,
+        computerChoice:this.computerChoice,
         playerScore:scores.playerScore,
         cumPlayerScore:this.playerScore,
         gameResult: this.gameResult(scores.playerScore, scores.computerScore)
