@@ -1,19 +1,8 @@
 class RockPaperScissors {
-  constructor(playerChoice, difficulty) {
+  constructor(playerChoice, playerScore) {
     this.playerChoice = playerChoice
     this.computerChoice = ''
-    this.gameDifficulty = difficulty ///set as 0 or  1
-    this.playerScore = this.loadScore().playerScore //load for each new game
-  }
-
-  loadScore(){
-    const scoreJSON = localStorage.getItem('scores')
-
-    try {
-      return scoreJSON ? JSON.parse(scoreJSON) : {playerScore: 0}
-    }catch(e){
-      return {playerScore: 0}
-    }
+    this.playerScore = playerScore //load for each new game
   }
 
   saveScore(){
@@ -22,27 +11,25 @@ class RockPaperScissors {
 
   keepScore() {
     let result = ''
-
-    if(this.playerChoice !== this.computerChoice){
-      if(this.setGameRules()[this.playerChoice].l.includes(this.computerChoice)){
-        if(this.playerScore > 0) this.playerScore--
-        result = 'YOU LOSE'
+    if(this.computerChoice.length > 0){
+      if(this.playerChoice !== this.computerChoice){
+        if(this.setGameRules()[this.playerChoice].l.includes(this.computerChoice)){
+          if(this.playerScore > 0) this.playerScore--
+          result = 'YOU LOSE'
+        }else{
+          this.playerScore++
+          result = 'YOU WIN'
+        }
       }else{
-        this.playerScore++
-        result = 'YOU WIN'
+         result = 'DRAW'
       }
-    }else{
-       result = 'DRAW'
+
+      this.saveScore()
+
+      return {
+          gameResult: result
+        }
     }
-
-    this.saveScore()
-
-    return {
-        playerChoice:this.playerChoice, //no need to return this item..just for testing
-        computerChoice:this.computerChoice,
-        cumPlayerScore:this.playerScore,
-        gameResult: result
-      }
   }
 
   setGameRules() {
@@ -58,16 +45,13 @@ class RockPaperScissors {
     return logic
   }
 
-  setGame() {
-    //set the game options
-    const options = this.gameDifficulty === 0 ? ['rock', 'paper', 'scissors'] : ['rock', 'paper', 'scissors', 'lizard', 'spock']
-
-    return options
-  }
-
   generateComputerChoice() {
+    //set the game options
+    const options = ['rock', 'paper', 'scissors', 'lizard', 'spock']
     //produce a random number from 0 to less than array length and truncate number
-    this.computerChoice = this.setGame()[Math.floor(Math.random() * this.setGame().length)]
+    this.computerChoice = options[Math.floor(Math.random() * options.length)]
+
+    return this.computerChoice
   }
 }
 
