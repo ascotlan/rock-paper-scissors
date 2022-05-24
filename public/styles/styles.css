@@ -1,0 +1,19 @@
+.rock{
+  background-color: hsl(349, 71%, 52%);
+}
+
+.paper{
+  background-color: hsl(230, 89%, 62%);
+}
+
+.scissors{
+  background-color: hsl(39, 89%, 49%);
+}
+
+.lizard{
+  background-color: hsl(261, 73%, 60%);
+}
+
+.spock{
+  background-color: hsl(189, 59%, 53%);
+}
