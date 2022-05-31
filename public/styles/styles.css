@@ -1,19 +1,64 @@
 .rock{
-  background-color: hsl(349, 71%, 52%);
+  background-image: url('/images/icon-rock.svg') ;
+  display:block;
+  background-color: white;
+  background-size:auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  width:100px;
+  height:100px;
+  border-radius: 50%;
+  border: 10px solid hsl(349, 71%, 52%);
 }
 
 .paper{
-  background-color: hsl(230, 89%, 62%);
+  background: url('/images/icon-paper.svg') no-repeat;
+  display:block;
+  background-color: white;
+  background-size:auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  width:100px;
+  height:100px;
+  border-radius: 50%;
+  border: 10px solid hsl(230, 89%, 62%);
 }
 
 .scissors{
-  background-color: hsl(39, 89%, 49%);
+  background: url('/images/icon-scissors.svg') no-repeat;
+  display:block;
+  background-color: white;
+  background-size:auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  width:100px;
+  height:100px;
+  border-radius: 50%;
+  border: 10px solid hsl(39, 89%, 49%);
 }
 
 .lizard{
-  background-color: hsl(261, 73%, 60%);
+  background: url('/images/icon-lizard.svg') no-repeat;
+  display:block;
+  background-color: white;
+  background-size:auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  width:100px;
+  height:100px;
+  border-radius: 50%;
+  border: 10px solid hsl(261, 73%, 60%);
 }
 
 .spock{
-  background-color: hsl(189, 59%, 53%);
+  background: url('/images/icon-spock.svg') no-repeat;
+  display:block;
+  background-color: white;
+  background-size:auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  width:100px;
+  height:100px;
+  border-radius: 50%;
+  border: 10px solid hsl(189, 59%, 53%);
 }

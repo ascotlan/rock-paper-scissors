@@ -15,11 +15,11 @@ const loadScore = () => {
 const generateScoreDOM = () => {
   const gameEl = document.querySelector('.game')
   const titleEL = document.createElement('label')
-  const gameTitleEl = document.createElement('h1')
+  const gameTitleEl = document.createElement('img')
   const scoreCaptionEl = document.createElement('p')
   const scoreEl = document.createElement('p')
 
-  gameTitleEl.textContent = "ROCK PAPER SCISSORS"
+  gameTitleEl.setAttribute('src','./images/logo-bonus.svg')
   titleEL.appendChild(gameTitleEl)
   scoreCaptionEl.textContent = `SCORE`
   titleEL.appendChild(scoreCaptionEl)
@@ -38,7 +38,7 @@ const renderRPS = () => {
 
   options.forEach((option) => {
       const optionsButtonEl = document.createElement('button')
-      optionsButtonEl.textContent = option
+
       if(option === 'rock'){
         optionsButtonEl.classList.add("rock")
       }else if(option === 'paper'){
@@ -62,30 +62,34 @@ const renderRPS = () => {
 const renderMatch = (playerChoice, computerChoice) => {
   const result = game.keepScore()
   const matchEl =  renderRPS()
-  matchEl.innerHTML = '' 
+  matchEl.innerHTML = ''
 
   generateScoreDOM()
 
   const yourTextEl = document.createElement('p')
   const houseTextEl = document.createElement('p')
-  const yourPickEl = document.createElement('p')
-  const housePickEl = document.createElement('p')
+  const yourPickEl = document.createElement('button')
+  const housePickEl = document.createElement('button')
   const resultEl = document.createElement('p')
   const playAgainEl = document.createElement('button')
   playAgainEl.classList.add('play-again')
 
+  yourPickEl.classList.add(game.setGameRules()[playerChoice].class)
+  housePickEl.classList.add(game.setGameRules()[computerChoice].class)
 
   yourTextEl.textContent = 'YOU PICKED'
   matchEl.appendChild(yourTextEl)
-  yourPickEl.textContent = playerChoice
   matchEl.appendChild(yourPickEl)
+
+  //***add timeout for game result and housepick rendering using promises***
+
   resultEl.textContent = result.gameResult
   matchEl.appendChild(resultEl)
   playAgainEl.textContent = 'PLAY AGAIN'
   matchEl.appendChild(playAgainEl)
+
   houseTextEl.textContent = 'THE HOUSE PICKED'
   matchEl.appendChild(houseTextEl)
-  housePickEl.textContent = computerChoice
   matchEl.appendChild(housePickEl)
 
   document.querySelector('.play-again').addEventListener('click', (e) => {
@@ -95,11 +99,15 @@ const renderMatch = (playerChoice, computerChoice) => {
 
 }
 
-
 const startGame = (playerChoice) => {
   game = new RockPaperScissors(playerChoice, loadScore().playerScore)
   renderMatch(playerChoice, game.generateComputerChoice())
 }
+
+document.querySelector('.game-rules').addEventListener('click', (e) => {
+  window.open("/rules.html",'popUpWindow','height=500,width=500,resizable=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,location=no')
+})
+
 
 renderRPS()
 

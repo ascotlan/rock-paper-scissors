@@ -35,11 +35,11 @@ class RockPaperScissors {
   setGameRules() {
 
     const logic = {
-      rock: {w:'scissors, lizard', l:'paper, spock' },
-      paper: {w:'rock, spock', l:'scissors, lizard' },
-      scissors: {w:'paper, lizard', l:'rock, spock' },
-      lizard: {w:'spock, paper', l:'rock, scissors' },
-      spock: {w:'scissors, rock', l:'lizard, paper' }
+      rock: {w:'scissors, lizard', l:'paper, spock',class:'rock' },
+      paper: {w:'rock, spock', l:'scissors, lizard',class:'paper' },
+      scissors: {w:'paper, lizard', l:'rock, spock',class:'scissors'  },
+      lizard: {w:'spock, paper', l:'rock, scissors',class:'lizard' },
+      spock: {w:'scissors, rock', l:'lizard, paper',class:'spock'  }
     }
 
     return logic
