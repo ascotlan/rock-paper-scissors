@@ -1,6 +1,6 @@
 .rock{
-  background-image: url('/images/icon-rock.svg') ;
   display:block;
+  background: url('/images/icon-rock.svg') no-repeat;
   background-color: white;
   background-size:auto;
   background-position: center;
@@ -12,8 +12,8 @@
 }
 
 .paper{
-  background: url('/images/icon-paper.svg') no-repeat;
   display:block;
+  background: url('/images/icon-paper.svg') no-repeat;
   background-color: white;
   background-size:auto;
   background-position: center;
@@ -25,8 +25,8 @@
 }
 
 .scissors{
-  background: url('/images/icon-scissors.svg') no-repeat;
   display:block;
+  background: url('/images/icon-scissors.svg') no-repeat;
   background-color: white;
   background-size:auto;
   background-position: center;
@@ -38,8 +38,8 @@
 }
 
 .lizard{
-  background: url('/images/icon-lizard.svg') no-repeat;
   display:block;
+  background: url('/images/icon-lizard.svg') no-repeat;
   background-color: white;
   background-size:auto;
   background-position: center;
@@ -51,8 +51,8 @@
 }
 
 .spock{
-  background: url('/images/icon-spock.svg') no-repeat;
   display:block;
+  background: url('/images/icon-spock.svg') no-repeat;
   background-color: white;
   background-size:auto;
   background-position: center;

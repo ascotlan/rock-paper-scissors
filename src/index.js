@@ -13,7 +13,7 @@ const loadScore = () => {
 }
 
 const generateScoreDOM = () => {
-  const gameEl = document.querySelector('.game')
+  const headerEl = document.querySelector('.score')
   const titleEL = document.createElement('label')
   const gameTitleEl = document.createElement('img')
   const scoreCaptionEl = document.createElement('p')
@@ -23,18 +23,19 @@ const generateScoreDOM = () => {
   titleEL.appendChild(gameTitleEl)
   scoreCaptionEl.textContent = `SCORE`
   titleEL.appendChild(scoreCaptionEl)
-  gameEl.appendChild(titleEL)
+  headerEl.appendChild(titleEL)
 
   scoreEl.textContent = loadScore().playerScore
   titleEL.appendChild(scoreEl)
-  gameEl.appendChild(titleEL)
+  headerEl.appendChild(titleEL)
 
-  return gameEl
+  return headerEl
 }
 
 const renderRPS = () => {
+  const gameEl = document.querySelector('.game')
   const options = ['rock', 'paper', 'scissors', 'lizard', 'spock']
-  const gameEl = generateScoreDOM()
+  generateScoreDOM()
 
   options.forEach((option) => {
       const optionsButtonEl = document.createElement('button')
@@ -59,12 +60,11 @@ const renderRPS = () => {
   return gameEl
 }
 
-const renderMatch = (playerChoice, computerChoice) => {
-  const result = game.keepScore()
+const renderMatch = () => {
+  const headerEl =   generateScoreDOM()
   const matchEl =  renderRPS()
+  headerEl.innerHTML =''
   matchEl.innerHTML = ''
-
-  generateScoreDOM()
 
   const yourTextEl = document.createElement('p')
   const houseTextEl = document.createElement('p')
@@ -74,16 +74,14 @@ const renderMatch = (playerChoice, computerChoice) => {
   const playAgainEl = document.createElement('button')
   playAgainEl.classList.add('play-again')
 
-  yourPickEl.classList.add(game.setGameRules()[playerChoice].class)
-  housePickEl.classList.add(game.setGameRules()[computerChoice].class)
+  yourPickEl.classList.add(game.setGameRules()[game.playerChoice].class)
+  housePickEl.classList.add(game.setGameRules()[game.generateComputerChoice()].class)
 
   yourTextEl.textContent = 'YOU PICKED'
   matchEl.appendChild(yourTextEl)
   matchEl.appendChild(yourPickEl)
 
-  //***add timeout for game result and housepick rendering using promises***
-
-  resultEl.textContent = result.gameResult
+  resultEl.textContent = game.keepScore().gameResult
   matchEl.appendChild(resultEl)
   playAgainEl.textContent = 'PLAY AGAIN'
   matchEl.appendChild(playAgainEl)
@@ -92,20 +90,33 @@ const renderMatch = (playerChoice, computerChoice) => {
   matchEl.appendChild(houseTextEl)
   matchEl.appendChild(housePickEl)
 
+  generateScoreDOM()
+
   document.querySelector('.play-again').addEventListener('click', (e) => {
     matchEl.innerHTML = ''
+    headerEl.innerHTML =''
     renderRPS()
   })
-
 }
 
 const startGame = (playerChoice) => {
   game = new RockPaperScissors(playerChoice, loadScore().playerScore)
-  renderMatch(playerChoice, game.generateComputerChoice())
+  renderMatch()
 }
 
 document.querySelector('.game-rules').addEventListener('click', (e) => {
   window.open("/rules.html",'popUpWindow','height=500,width=500,resizable=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,location=no')
+})
+
+window.addEventListener('storage', (e) => { //update score and reset game in other windows
+  if(e.key === 'scores'){
+    const headerEl =   generateScoreDOM()
+    const matchEl =  renderRPS()
+    headerEl.innerHTML =''
+    matchEl.innerHTML = ''
+
+    renderRPS()
+  }
 })
 
 
