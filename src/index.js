@@ -13,23 +13,21 @@ const loadScore = () => {
 }
 
 const generateScoreDOM = () => {
+  const titleEl = document.querySelector('.title')
   const headerEl = document.querySelector('.score')
-  const titleEL = document.createElement('label')
   const gameTitleEl = document.createElement('img')
   const scoreCaptionEl = document.createElement('p')
   const scoreEl = document.createElement('p')
 
   gameTitleEl.setAttribute('src','./images/logo-bonus.svg')
-  titleEL.appendChild(gameTitleEl)
+  titleEl.appendChild(gameTitleEl)
   scoreCaptionEl.textContent = `SCORE`
-  titleEL.appendChild(scoreCaptionEl)
-  headerEl.appendChild(titleEL)
+  headerEl.appendChild(scoreCaptionEl)
 
   scoreEl.textContent = loadScore().playerScore
-  titleEL.appendChild(scoreEl)
-  headerEl.appendChild(titleEL)
+  headerEl.appendChild(scoreEl)
 
-  return headerEl
+  return [titleEl, headerEl]
 }
 
 const renderRPS = () => {
@@ -61,10 +59,13 @@ const renderRPS = () => {
 }
 
 const renderMatch = () => {
-  const headerEl =   generateScoreDOM()
+  const [titleEl, headerEl] =   generateScoreDOM()
   const matchEl =  renderRPS()
+  titleEl.innerHTML = ''
   headerEl.innerHTML =''
   matchEl.innerHTML = ''
+
+  generateScoreDOM()
 
   const yourTextEl = document.createElement('p')
   const houseTextEl = document.createElement('p')
@@ -75,28 +76,45 @@ const renderMatch = () => {
   playAgainEl.classList.add('play-again')
 
   yourPickEl.classList.add(game.setGameRules()[game.playerChoice].class)
-  housePickEl.classList.add(game.setGameRules()[game.generateComputerChoice()].class)
 
   yourTextEl.textContent = 'YOU PICKED'
   matchEl.appendChild(yourTextEl)
   matchEl.appendChild(yourPickEl)
 
-  resultEl.textContent = game.keepScore().gameResult
-  matchEl.appendChild(resultEl)
-  playAgainEl.textContent = 'PLAY AGAIN'
-  matchEl.appendChild(playAgainEl)
-
   houseTextEl.textContent = 'THE HOUSE PICKED'
   matchEl.appendChild(houseTextEl)
-  matchEl.appendChild(housePickEl)
 
-  generateScoreDOM()
+  const myPromise = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      game.generateComputerChoice().length > 0 ?
+      resolve(game.generateComputerChoice()):
+        reject('House has not made a choice yet!')
+    }, 500)
+  }).then((data) => {
+      housePickEl.classList.add(game.setGameRules()[data].class)
 
-  document.querySelector('.play-again').addEventListener('click', (e) => {
-    matchEl.innerHTML = ''
-    headerEl.innerHTML =''
-    renderRPS()
+      matchEl.appendChild(housePickEl)
+      resultEl.textContent = game.keepScore().gameResult
+      matchEl.appendChild(resultEl)
+      playAgainEl.textContent = 'PLAY AGAIN'
+      matchEl.appendChild(playAgainEl)
+
+      titleEl.innerHTML = ''
+      headerEl.innerHTML =''
+
+      generateScoreDOM()
+
+      document.querySelector('.play-again').addEventListener('click', (e) => {
+        titleEl.innerHTML = ''
+        matchEl.innerHTML = ''
+        headerEl.innerHTML =''
+        renderRPS()
+      })
+
+  }).catch((err) => {
+      console.log(err)
   })
+
 }
 
 const startGame = (playerChoice) => {
@@ -110,8 +128,9 @@ document.querySelector('.game-rules').addEventListener('click', (e) => {
 
 window.addEventListener('storage', (e) => { //update score and reset game in other windows
   if(e.key === 'scores'){
-    const headerEl =   generateScoreDOM()
+    const [titleEl, headerEl] =   generateScoreDOM()
     const matchEl =  renderRPS()
+    titleEl.innerHTML = ''
     headerEl.innerHTML =''
     matchEl.innerHTML = ''
 
