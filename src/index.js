@@ -90,26 +90,28 @@ const renderMatch = () => {
       resolve(game.generateComputerChoice()):
         reject('House has not made a choice yet!')
     }, 500)
-  }).then((data) => {
-      housePickEl.classList.add(game.setGameRules()[data].class)
+  })
 
-      matchEl.appendChild(housePickEl)
-      resultEl.textContent = game.keepScore().gameResult
-      matchEl.appendChild(resultEl)
-      playAgainEl.textContent = 'PLAY AGAIN'
-      matchEl.appendChild(playAgainEl)
+  myPromise.then((data) => {
+    housePickEl.classList.add(game.setGameRules()[data].class)
+    matchEl.appendChild(housePickEl)
 
+    resultEl.textContent = game.keepScore().gameResult
+    matchEl.appendChild(resultEl)
+    playAgainEl.textContent = 'PLAY AGAIN'
+    matchEl.appendChild(playAgainEl)
+
+    titleEl.innerHTML = ''
+    headerEl.innerHTML =''
+
+    generateScoreDOM()
+
+    document.querySelector('.play-again').addEventListener('click', (e) => {
       titleEl.innerHTML = ''
+      matchEl.innerHTML = ''
       headerEl.innerHTML =''
-
-      generateScoreDOM()
-
-      document.querySelector('.play-again').addEventListener('click', (e) => {
-        titleEl.innerHTML = ''
-        matchEl.innerHTML = ''
-        headerEl.innerHTML =''
-        renderRPS()
-      })
+      renderRPS()
+    })
 
   }).catch((err) => {
       console.log(err)
@@ -137,7 +139,6 @@ window.addEventListener('storage', (e) => { //update score and reset game in oth
     renderRPS()
   }
 })
-
 
 renderRPS()
 
