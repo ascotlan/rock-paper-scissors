@@ -1,145 +1,179 @@
-import RockPaperScissors from './rock-paper'
+import RockPaperScissors from "./rock-paper";
 
-let game
+let game;
 
 const loadScore = () => {
-  const scoreJSON = localStorage.getItem('scores')
+  const scoreJSON = localStorage.getItem("scores");
 
   try {
-    return scoreJSON ? JSON.parse(scoreJSON) : {playerScore: 0}
-  }catch(e){
-    return {playerScore: 0}
+    return scoreJSON ? JSON.parse(scoreJSON) : { playerScore: 0 };
+  } catch (e) {
+    return { playerScore: 0 };
   }
-}
+};
 
 const generateScoreDOM = () => {
-  const titleEl = document.querySelector('.title')
-  const headerEl = document.querySelector('.score')
-  const gameTitleEl = document.createElement('img')
-  const scoreCaptionEl = document.createElement('p')
-  const scoreEl = document.createElement('p')
+  const titleEl = document.querySelector(".title");
+  const headerEl = document.querySelector(".score");
+  const gameTitleEl = document.createElement("img");
+  const scoreCaptionEl = document.createElement("span");
+  const scoreEl = document.createElement("span");
 
-  gameTitleEl.setAttribute('src','./images/logo-bonus.svg')
-  titleEl.appendChild(gameTitleEl)
-  scoreCaptionEl.textContent = `SCORE`
-  headerEl.appendChild(scoreCaptionEl)
+  gameTitleEl.setAttribute("src", "./images/logo-bonus.svg");
+  titleEl.appendChild(gameTitleEl);
+  scoreCaptionEl.textContent = `score`;
+  scoreCaptionEl.classList.add("score-text");
+  headerEl.appendChild(scoreCaptionEl);
 
-  scoreEl.textContent = loadScore().playerScore
-  headerEl.appendChild(scoreEl)
+  scoreEl.textContent = loadScore().playerScore;
+  scoreEl.classList.add("score-number");
+  headerEl.appendChild(scoreEl);
 
-  return [titleEl, headerEl]
-}
+  return [titleEl, headerEl];
+};
 
 const renderRPS = () => {
-  const gameEl = document.querySelector('.game')
-  const options = ['rock', 'paper', 'scissors', 'lizard', 'spock']
-  generateScoreDOM()
+  const gameEl = document.querySelector(".game");
+  const pentagonEl = document.querySelector(".pentagon");
+  const options = ["scissors", "paper", "rock", "lizard", "spock"];
+  generateScoreDOM();
 
   options.forEach((option) => {
-      const optionsButtonEl = document.createElement('button')
+    const optionsButtonEl = document.createElement("button");
+    const wrapperEl = document.createElement("div");
+    if (option === "rock") {
+      optionsButtonEl.classList.add("rock");
+      wrapperEl.classList.add("rock-wrapper");
+    } else if (option === "paper") {
+      optionsButtonEl.classList.add("paper");
+      wrapperEl.classList.add("paper-wrapper");
+    } else if (option === "scissors") {
+      optionsButtonEl.classList.add("scissors");
+      wrapperEl.classList.add("scissors-wrapper");
+    } else if (option === "lizard") {
+      optionsButtonEl.classList.add("lizard");
+      wrapperEl.classList.add("lizard-wrapper");
+    } else {
+      optionsButtonEl.classList.add("spock");
+      wrapperEl.classList.add("spock-wrapper");
+    }
+    optionsButtonEl.addEventListener("click", (e) => {
+      startGame(option);
+      pentagonEl.classList.add("no-show");
+      gameEl.classList.add("result-spacing");
+    });
+    wrapperEl.appendChild(optionsButtonEl);
+    gameEl.appendChild(wrapperEl);
+  });
 
-      if(option === 'rock'){
-        optionsButtonEl.classList.add("rock")
-      }else if(option === 'paper'){
-        optionsButtonEl.classList.add("paper")
-      }else if(option === 'scissors'){
-        optionsButtonEl.classList.add("scissors")
-      }else if(option === 'lizard'){
-        optionsButtonEl.classList.add("lizard")
-      }else{
-        optionsButtonEl.classList.add("spock")
-      }
-      optionsButtonEl.addEventListener('click',(e) => {
-        startGame(option)
-      })
-      gameEl.appendChild(optionsButtonEl)
-  })
-
-  return gameEl
-}
+  return gameEl;
+};
 
 const renderMatch = () => {
-  const [titleEl, headerEl] =   generateScoreDOM()
-  const matchEl =  renderRPS()
-  titleEl.innerHTML = ''
-  headerEl.innerHTML =''
-  matchEl.innerHTML = ''
+  const [titleEl, headerEl] = generateScoreDOM();
+  const matchEl = renderRPS();
+  titleEl.innerHTML = "";
+  headerEl.innerHTML = "";
+  matchEl.innerHTML = "";
 
-  generateScoreDOM()
+  generateScoreDOM();
 
-  const yourTextEl = document.createElement('p')
-  const houseTextEl = document.createElement('p')
-  const yourPickEl = document.createElement('button')
-  const housePickEl = document.createElement('button')
-  const resultEl = document.createElement('p')
-  const playAgainEl = document.createElement('button')
-  playAgainEl.classList.add('play-again')
+  const yourTextEl = document.createElement("p");
+  const houseTextEl = document.createElement("p");
+  const yourPickEl = document.createElement("button");
+  const housePickEl = document.createElement("button");
+  const resultEl = document.createElement("p");
+  const playAgainEl = document.createElement("button");
+  const restartEl = document.createElement("div");
+  const pentagonEl = document.querySelector(".pentagon");
+  const wrapperEl = document.createElement("div");
+  const wrapper2El = document.createElement("div");
+  playAgainEl.classList.add("play-again");
 
-  yourPickEl.classList.add(game.setGameRules()[game.playerChoice].class)
+  wrapperEl.classList.add("your-pick");
+  wrapper2El.classList.add("house-pick", "space-holder");
+  yourPickEl.classList.add(game.setGameRules()[game.playerChoice].class);
 
-  yourTextEl.textContent = 'YOU PICKED'
-  matchEl.appendChild(yourTextEl)
-  matchEl.appendChild(yourPickEl)
+  yourTextEl.textContent = "YOU PICKED";
+  yourTextEl.classList.add("player-choice");
+  matchEl.appendChild(yourTextEl);
 
-  houseTextEl.textContent = 'THE HOUSE PICKED'
-  matchEl.appendChild(houseTextEl)
+  wrapperEl.appendChild(yourPickEl);
+  matchEl.appendChild(wrapperEl);
 
-  const myPromise = new Promise((resolve, reject) => {
+  houseTextEl.textContent = "THE HOUSE PICKED";
+  houseTextEl.classList.add("cpu-choice");
+
+  housePickEl.classList.add(
+    game.setGameRules()[game.generateComputerChoice()].class
+  );
+
+  housePickEl.style.visibility = "hidden";
+  housePickEl.style.opacity = 0;
+  housePickEl.style.pointerEvents = "none";
+
+  matchEl.appendChild(houseTextEl);
+  wrapper2El.appendChild(housePickEl);
+
+  resultEl.textContent = game.keepScore().gameResult;
+  playAgainEl.textContent = "PLAY AGAIN";
+  restartEl.classList.add("results");
+
+  restartEl.style.display = "none";
+
+  restartEl.appendChild(resultEl);
+  restartEl.appendChild(playAgainEl);
+  matchEl.appendChild(restartEl);
+  matchEl.appendChild(wrapper2El);
+
+  setTimeout(() => {
+    housePickEl.style.visibility = "visible";
+    housePickEl.style.opacity = 1;
+    housePickEl.style.pointerEvents = "auto";
+    housePickEl.style.transition = "all 0.1s";
+
     setTimeout(() => {
-      game.generateComputerChoice().length > 0 ?
-      resolve(game.generateComputerChoice()):
-        reject('House has not made a choice yet!')
-    }, 500)
-  })
+      restartEl.style.display = "flex";
+      titleEl.innerHTML = "";
+      headerEl.innerHTML = "";
+      generateScoreDOM();
+    }, 300);
+  }, 400);
 
-  myPromise.then((data) => {
-    housePickEl.classList.add(game.setGameRules()[data].class)
-    matchEl.appendChild(housePickEl)
-
-    resultEl.textContent = game.keepScore().gameResult
-    matchEl.appendChild(resultEl)
-    playAgainEl.textContent = 'PLAY AGAIN'
-    matchEl.appendChild(playAgainEl)
-
-    titleEl.innerHTML = ''
-    headerEl.innerHTML =''
-
-    generateScoreDOM()
-
-    document.querySelector('.play-again').addEventListener('click', (e) => {
-      titleEl.innerHTML = ''
-      matchEl.innerHTML = ''
-      headerEl.innerHTML =''
-      renderRPS()
-    })
-
-  }).catch((err) => {
-      console.log(err)
-  })
-
-}
+  document.querySelector(".play-again").addEventListener("click", (e) => {
+    titleEl.innerHTML = "";
+    matchEl.innerHTML = "";
+    headerEl.innerHTML = "";
+    renderRPS();
+    pentagonEl.classList.remove("no-show");
+    matchEl.classList.remove("result-spacing");
+  });
+};
 
 const startGame = (playerChoice) => {
-  game = new RockPaperScissors(playerChoice, loadScore().playerScore)
-  renderMatch()
-}
+  game = new RockPaperScissors(playerChoice, loadScore().playerScore);
+  renderMatch();
+};
 
-document.querySelector('.game-rules').addEventListener('click', (e) => {
-  window.open("/rules.html",'popUpWindow','height=500,width=500,resizable=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,location=no')
-})
+document.querySelector(".game-rules").addEventListener("click", (e) => {
+  window.open(
+    "/rules.html",
+    "popUpWindow",
+    "height=500,width=500,resizable=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,location=no"
+  );
+});
 
-window.addEventListener('storage', (e) => { //update score and reset game in other windows
-  if(e.key === 'scores'){
-    const [titleEl, headerEl] =   generateScoreDOM()
-    const matchEl =  renderRPS()
-    titleEl.innerHTML = ''
-    headerEl.innerHTML =''
-    matchEl.innerHTML = ''
+window.addEventListener("storage", (e) => {
+  //update score and reset game in other windows
+  if (e.key === "scores") {
+    const [titleEl, headerEl] = generateScoreDOM();
+    const matchEl = renderRPS();
+    titleEl.innerHTML = "";
+    headerEl.innerHTML = "";
+    matchEl.innerHTML = "";
 
-    renderRPS()
+    renderRPS();
   }
-})
+});
 
-renderRPS()
-
-export{startGame, renderRPS, renderMatch}
+renderRPS();
