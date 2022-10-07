@@ -173,6 +173,20 @@ body {
   box-shadow: 0 0.7rem 0rem rgba(136, 136, 136, 0.3) inset;
 }
 
+.scissors::after,
+.paper::after,
+.rock::after,
+.lizard::after,
+.spock::after {
+  content: "";
+  position: absolute;
+  z-index: -999;
+  border-radius: 50%;
+  top: -2rem;
+  left: -2rem;
+  padding: 7rem;
+}
+
 .scissors-wrapper {
   grid-column: 2;
 }
@@ -188,18 +202,11 @@ body {
 }
 
 .scissors::after {
-  content: "";
-  position: absolute;
-  z-index: -999;
   background: linear-gradient(
     to left top,
     hsl(39, 89%, 49%),
     hsl(40, 84%, 53%)
   );
-  border-radius: 50%;
-  top: -2rem;
-  left: -2rem;
-  padding: 7rem;
   box-shadow: 0 -0.7rem 0rem #cf711f inset;
 }
 
@@ -219,18 +226,11 @@ body {
 }
 
 .paper::after {
-  content: "";
-  position: absolute;
-  z-index: -999;
   background: linear-gradient(
     to left top,
     hsl(230, 89%, 62%),
     hsl(230, 89%, 65%)
   );
-  border-radius: 50%;
-  top: -2rem;
-  left: -2rem;
-  padding: 7rem;
   box-shadow: 0 -0.7rem 0rem #3a51c3 inset;
 }
 
@@ -252,18 +252,11 @@ body {
 }
 
 .rock::after {
-  content: "";
-  position: absolute;
-  z-index: -999;
   background: linear-gradient(
     to left top,
     hsl(349, 71%, 52%),
     hsl(349, 70%, 56%)
   );
-  border-radius: 50%;
-  top: -2rem;
-  left: -2rem;
-  padding: 7rem;
   box-shadow: 0 -0.7rem 0rem #b0253e inset;
 }
 
@@ -284,18 +277,11 @@ body {
 }
 
 .lizard::after {
-  content: "";
-  position: absolute;
-  z-index: -999;
   background: linear-gradient(
     to left top,
     hsl(261, 73%, 60%),
     hsl(261, 72%, 63%)
   );
-  border-radius: 50%;
-  top: -2rem;
-  left: -2rem;
-  padding: 7rem;
   box-shadow: 0 -0.7rem 0rem #693fb6 inset;
 }
 
@@ -314,18 +300,11 @@ body {
 }
 
 .spock::after {
-  content: "";
-  position: absolute;
-  z-index: -999;
   background: linear-gradient(
     to left top,
     hsl(189, 59%, 53%),
     hsl(189, 58%, 57%)
   );
-  border-radius: 50%;
-  top: -2rem;
-  left: -2rem;
-  padding: 7rem;
   box-shadow: 0 -0.7rem 0rem #3394a5 inset;
 }
 
@@ -334,6 +313,9 @@ body {
 /******************************/
 
 .your-pick {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   grid-column: 1;
   grid-row: 2;
   transform: scale(2);
@@ -346,6 +328,9 @@ body {
 }
 
 .space-holder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 50%;
   background-color: hsl(214, 47%, 23%);
 }
@@ -366,6 +351,9 @@ body {
 }
 
 .play-again {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 1.8rem;
   font-weight: 600;
   font-family: inherit;
@@ -385,7 +373,7 @@ body {
 
 .player-choice {
   align-self: start;
-  font-size: 2.4rem;
+  font-size: 2rem;
   color: #fff;
   font-weight: 600;
   letter-spacing: 2px;
@@ -396,7 +384,7 @@ body {
   grid-column: 3;
   grid-row: 1;
   align-self: start;
-  font-size: 2.4rem;
+  font-size: 2rem;
   color: #fff;
   font-weight: 600;
   letter-spacing: 2px;
@@ -417,7 +405,7 @@ body {
   font-weight: 600;
   color: #fff;
   background-color: transparent;
-  border: 3px solid hsl(217, 16%, 45%);
+  border: 3px solid #fff;
   padding: 1.2rem 3.2rem;
   border-radius: 9px;
   cursor: pointer;
@@ -436,6 +424,15 @@ body {
 
 .margin-helper {
   margin-bottom: 3.2rem;
+}
+
+.winner {
+  background-color: #4c5f78;
+  width: 20rem;
+  height: 20rem;
+  border-radius: 50%;
+  box-shadow: 0 0 0.1rem 4rem #354b67, 0 0 0.2rem 8rem #1f3756;
+  z-index: -9999;
 }
 
 /******************************/

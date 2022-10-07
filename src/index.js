@@ -137,8 +137,15 @@ const renderMatch = () => {
       titleEl.innerHTML = "";
       headerEl.innerHTML = "";
       generateScoreDOM();
-    }, 300);
-  }, 400);
+      if (resultEl.textContent === "YOU WIN") {
+        wrapperEl.classList.add("winner");
+      }
+
+      if (resultEl.textContent === "YOU LOSE") {
+        wrapper2El.classList.add("winner");
+      }
+    }, 500);
+  }, 500);
 
   document.querySelector(".play-again").addEventListener("click", (e) => {
     titleEl.innerHTML = "";
