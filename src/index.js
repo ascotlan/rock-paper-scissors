@@ -162,12 +162,13 @@ const startGame = (playerChoice) => {
   renderMatch();
 };
 
+const modal = document.querySelector(".modal");
 document.querySelector(".game-rules").addEventListener("click", (e) => {
-  window.open(
-    "/rules.html",
-    "popUpWindow",
-    "height=500,width=500,resizable=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,location=no"
-  );
+  modal.showModal();
+});
+
+document.querySelector(".close-rules").addEventListener("click", (e) => {
+  modal.close();
 });
 
 window.addEventListener("storage", (e) => {
