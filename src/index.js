@@ -88,7 +88,10 @@ const renderMatch = () => {
   const pentagonEl = document.querySelector(".pentagon");
   const wrapperEl = document.createElement("div");
   const wrapper2El = document.createElement("div");
+  const containerEl = document.querySelector(".rules");
   playAgainEl.classList.add("play-again");
+
+  containerEl.classList.remove("margin-top-helper");
 
   wrapperEl.classList.add("your-pick");
   wrapper2El.classList.add("house-pick", "space-holder");
@@ -154,6 +157,7 @@ const renderMatch = () => {
     renderRPS();
     pentagonEl.classList.remove("no-show");
     matchEl.classList.remove("result-spacing");
+    containerEl.classList.remove("margin-top-helper");
   });
 };
 

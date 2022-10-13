@@ -60,6 +60,14 @@ body {
   font-family: "Barlow Semi Condensed", sans-serif;
 }
 
+.margin-bottom-helper {
+  margin-bottom: 3.2rem !important;
+}
+
+.margin-top-helper {
+  margin-top: 8rem !important;
+}
+
 /******************************/
 /* HEADER SECTION */
 /******************************/
@@ -90,8 +98,8 @@ body {
 }
 
 .title {
-  width: 11.5rem;
-  height: 11.4rem;
+  width: 12rem;
+  height: 12rem;
 }
 
 .score {
@@ -100,7 +108,7 @@ body {
   align-items: center;
   justify-content: center;
   background-color: #fff;
-  height: 11.4rem;
+  height: 12rem;
   width: 19rem;
   border-radius: 9px;
 }
@@ -122,7 +130,7 @@ body {
 /* GAME SECTION */
 /******************************/
 
-.main {
+.game-container {
   max-width: 136.6rem;
   margin: 0 auto;
   position: relative;
@@ -398,10 +406,6 @@ body {
   column-gap: 12.8rem;
 }
 
-.margin-helper {
-  margin-bottom: 3.2rem;
-}
-
 .winner {
   background-color: #4c5f78;
   width: 20rem;
@@ -412,7 +416,7 @@ body {
 }
 
 /******************************/
-/* MODAL SECTION */
+/* RULES MODAL SECTION */
 /******************************/
 
 .rules {
@@ -420,7 +424,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: end;
-  margin-top: 3.2rem;
 }
 
 .game-rules {
