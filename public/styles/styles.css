@@ -454,6 +454,8 @@ body {
 }
 
 .close-rules {
+  display: flex;
+  justify-content: flex-end;
   border: none;
   background: none;
   cursor: pointer;
@@ -478,11 +480,16 @@ body {
   opacity: 0.4;
 }
 
-.modal-header {
-  display: flex;
+.modal-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 3.2rem;
+  row-gap: 3.2rem;
+}
+
+.modal-container img {
+  grid-column: 1/-1;
+  justify-self: center;
 }
 
 /******************************/
