@@ -311,7 +311,7 @@ Instead, 1rem = 1em = 16px */
     grid-column: 1/-1;
   }
 
-  :modal p{
+  .modal p{
     font-size: 4.4rem;
     grid-column: 1/-1;
     justify-self: center;
