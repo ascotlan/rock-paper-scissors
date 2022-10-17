@@ -47,23 +47,23 @@ const renderRPS = () => {
     const wrapperEl = document.createElement("div");
     if (option === "rock") {
       optionsButtonEl.classList.add("rock");
-      optionsButtonEl.name = "rock";
+      optionsButtonEl.ariaLabel = "rock";
       wrapperEl.classList.add("rock-wrapper");
     } else if (option === "paper") {
       optionsButtonEl.classList.add("paper");
-      optionsButtonEl.name = "paper";
+      optionsButtonEl.ariaLabel = "paper";
       wrapperEl.classList.add("paper-wrapper");
     } else if (option === "scissors") {
       optionsButtonEl.classList.add("scissors");
-      optionsButtonEl.name = "scissors";
+      optionsButtonEl.ariaLabel = "scissors";
       wrapperEl.classList.add("scissors-wrapper");
     } else if (option === "lizard") {
       optionsButtonEl.classList.add("lizard");
-      optionsButtonEl.name = "lizard";
+      optionsButtonEl.ariaLabel = "lizard";
       wrapperEl.classList.add("lizard-wrapper");
     } else {
       optionsButtonEl.classList.add("spock");
-      optionsButtonEl.name = "spock";
+      optionsButtonEl.ariaLabel = "spock";
       wrapperEl.classList.add("spock-wrapper");
     }
     optionsButtonEl.addEventListener("click", (e) => {
@@ -106,7 +106,7 @@ const renderMatch = () => {
   wrapper2El.classList.add("house-pick", "space-holder");
   const youChose = game.setGameRules()[game.playerChoice].class;
   yourPickEl.classList.add(youChose);
-  yourPickEl.name = youChose;
+  yourPickEl.ariaLabel = youChose;
 
   yourTextEl.textContent = "YOU PICKED";
   yourTextEl.classList.add("player-choice");
@@ -119,7 +119,7 @@ const renderMatch = () => {
   houseTextEl.classList.add("cpu-choice");
   const pcChose = game.setGameRules()[game.generateComputerChoice()].class;
   housePickEl.classList.add(pcChose);
-  housePickEl.name = pcChose;
+  housePickEl.ariaLabel = pcChose;
 
   housePickEl.style.visibility = "hidden";
   housePickEl.style.opacity = 0;
