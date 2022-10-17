@@ -20,6 +20,10 @@ const generateScoreDOM = () => {
   const scoreEl = document.createElement("span");
 
   gameTitleEl.setAttribute("src", "./images/logo-bonus.svg");
+  gameTitleEl.setAttribute(
+    "alt",
+    "Title of game, which is Rock, Paper, Scissors, Lizard, Spock"
+  );
   titleEl.appendChild(gameTitleEl);
   scoreCaptionEl.textContent = `score`;
   scoreCaptionEl.classList.add("score-text");
@@ -43,18 +47,23 @@ const renderRPS = () => {
     const wrapperEl = document.createElement("div");
     if (option === "rock") {
       optionsButtonEl.classList.add("rock");
+      optionsButtonEl.name = "rock";
       wrapperEl.classList.add("rock-wrapper");
     } else if (option === "paper") {
       optionsButtonEl.classList.add("paper");
+      optionsButtonEl.name = "paper";
       wrapperEl.classList.add("paper-wrapper");
     } else if (option === "scissors") {
       optionsButtonEl.classList.add("scissors");
+      optionsButtonEl.name = "scissors";
       wrapperEl.classList.add("scissors-wrapper");
     } else if (option === "lizard") {
       optionsButtonEl.classList.add("lizard");
+      optionsButtonEl.name = "lizard";
       wrapperEl.classList.add("lizard-wrapper");
     } else {
       optionsButtonEl.classList.add("spock");
+      optionsButtonEl.name = "spock";
       wrapperEl.classList.add("spock-wrapper");
     }
     optionsButtonEl.addEventListener("click", (e) => {
@@ -95,7 +104,9 @@ const renderMatch = () => {
 
   wrapperEl.classList.add("your-pick");
   wrapper2El.classList.add("house-pick", "space-holder");
-  yourPickEl.classList.add(game.setGameRules()[game.playerChoice].class);
+  const youChose = game.setGameRules()[game.playerChoice].class;
+  yourPickEl.classList.add(youChose);
+  yourPickEl.name = youChose;
 
   yourTextEl.textContent = "YOU PICKED";
   yourTextEl.classList.add("player-choice");
@@ -106,10 +117,9 @@ const renderMatch = () => {
 
   houseTextEl.textContent = "THE HOUSE PICKED";
   houseTextEl.classList.add("cpu-choice");
-
-  housePickEl.classList.add(
-    game.setGameRules()[game.generateComputerChoice()].class
-  );
+  const pcChose = game.setGameRules()[game.generateComputerChoice()].class;
+  housePickEl.classList.add(pcChose);
+  housePickEl.name = pcChose;
 
   housePickEl.style.visibility = "hidden";
   housePickEl.style.opacity = 0;
